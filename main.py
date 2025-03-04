@@ -5,9 +5,14 @@
 import os
 import telebot
 from telebot import types
+import logging
 
+logging.basicConfig(level=logging.INFO, filename="bot_log.log",filemode="w",
+                    format="%(asctime)s %(levelname)s %(message)s")
+
+# Token
 TOKEN = "-"  # PASTE YOUR TG Token here
-ADMIN_ID = 1337  # Paste your telegram account ID, you can check it
+ADMIN_ID = 1337888  # Paste your telegram account ID, you can check it
 ADMIN_IDS = {ADMIN_ID}  # Admins
 MSG_DIR = "msg/user"
 status = "open"
@@ -56,6 +61,7 @@ def start(message):
     # Sending photo
     with open(photo_path, 'rb') as photo:
         bot.send_photo(message.chat.id, photo, caption="Hello, this is an open-source suggestion bot!")
+        logging.info(f"{message.from_user.username} used /start")
 
 @bot.message_handler(commands=['send'])
 def send_suggestion(message):
@@ -69,14 +75,16 @@ def send_suggestion(message):
         ensure_directory_exists(user_dir)
         with open(os.path.join(user_dir, "suggestions.txt"), "a", encoding="utf-8") as file:
             file.write(f"{text}\n")
-        
+            
+        logging.info(f"Сообщение @{message.from_user.username} успешно доставлено")
         bot.reply_to(message, "Message sent!")
     else:
         status_text = "open" if suggestions_open else "closed"
-        bot.reply_to(message, "So, after this message, you can skip anything, it will go to the admins of the humor houses.\nATTENTION:\n- This must be either a message or a file, if you send a file with a signature, it will only be a file direction\n- Only ONE file, for example, if you create several video commands, only ONE video will be sent.\n\nIMPORTANT: Suggestion now: " + status_text + ".")
+        bot.reply_to(message, "So, after this message, you can skip anything, it will go to the admins of the smehotulkis.\nATTENTION:\n- This must be either a message or a file, if you send a file with a signature, it will only be a file direction\n- Only ONE file, for example, if you create several video commands, only ONE video will be sent.\n\nIMPORTANT: Suggestion now: " + status_text + ".")
 
 @bot.message_handler(commands=['checkid'])
 def check_id(message):
+    logging.info(f"Юзер @{message.from_user.username} использовал /checkid")
     bot.send_message(message.chat.id, f"Your ID: {message.from_user.id}")
 
 @bot.message_handler(commands=['admin'])
@@ -90,6 +98,7 @@ def admin_panel(message):
         keyboard.add(types.InlineKeyboardButton("🔄 Close/Open suggestion box", callback_data="toggle_suggestions"))
     
     bot.send_message(message.chat.id, "Admin Panel:", reply_markup=keyboard)
+    logging.info(f"@{message.from_user.username} воспользовался админ-панелью")
 
 suggestions_open = True
 
@@ -138,13 +147,14 @@ def handle_message(message):
     if suggestions_open:
         # Check if user is banned
         if message.from_user.id in banned_users:
+            logging.info(f"Сообщение @{message.from_user.username} не было доставлено, потому что он заблокирован")
             bot.reply_to(message, "YOU ARE BLOCKED FOR VIOLATING THE RULES. You will no longer be able to send suggestions, but you can still use other features.")
             return
         
         # Create "Yes" and "No" buttons
         markup = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
         markup.add(types.KeyboardButton("Yes"), types.KeyboardButton("No"))
-        bot.send_message(message.chat.id, "Are you sure you want to send this message to the admins of the humor houses?", reply_markup=markup)
+        bot.send_message(message.chat.id, "Are you sure you want to send this message to the admins of the smehotulkis?", reply_markup=markup)
         
         # Cache the user's sent message
         user_message_cache[message.from_user.id] = {
@@ -233,7 +243,7 @@ def process_suggestion(message):
                     bot.send_message(ADMIN_ID, f"New message from @{username}:\n\n{text}", reply_markup=keyboard)
 
                 # Notify user that their message has been sent to the admins
-                bot.send_message(message.chat.id, "Sorry to disappoint... your message has been successfully delivered to the Admins of Humor Houses!")
+                bot.send_message(message.chat.id, "Sorry to disappoint... your message has been successfully delivered to the Admins of smehotulkis!")
             else:
                 bot.send_message(message.chat.id, "Error processing the file. Please try again.")
         else:
@@ -242,8 +252,9 @@ def process_suggestion(message):
         bot.send_message(message.chat.id, "Something went wrong, please try again.")
 
 def reply_to_user(message, user_id):
-    bot.send_message(user_id, f"Admin from Humor Houses replied to one of your messages with the following text:\n{message.text}")
+    bot.send_message(user_id, f"Admin from smehotulkis replied to one of your messages with the following text:\n{message.text}")
     bot.send_message(message.chat.id, "Message sent to the user.")
 
-bot.polling(none_stop=True)
+logging.info("Bot started!")
 
+bot.polling(none_stop=True)
