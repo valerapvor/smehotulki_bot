@@ -48,3 +48,27 @@ It has simple and functional functionality.*
 ### *...and a bunch of other features*
 
 
+---
+
+# Installation (by Git on Linux)
+
+1) Select the folder in which you want to install the bot
+2) Clone the repository:
+```
+git clone https://github.com/valerapvor/smehotulki_bot.git
+```
+3) Install dependencies:
+```
+pip install PyTelegramBotAPI
+```
+4) Edit main.py:
+Change in `TOKEN` - `-` to you real telegram bot api, created using @BotFather in telegram.
+5) Start bot:
+```
+./start.sh
+```
+6) Go to bot and send `/checkid` command, bot send a id you copy he.
+7) Go to `main.py` and paste copy id into `ADMIN_ID`.
+8) Restart bot.
+
+*Guide version 1.0 *(I will update frequently)*
