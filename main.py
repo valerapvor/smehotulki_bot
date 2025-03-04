@@ -2,8 +2,8 @@ import os
 import telebot
 from telebot import types
 
-TOKEN = "7575017843:AAEhjPO0AdvOQ2PJs2C-Ej4W-YWchquCOFE"  # PASTE YOUR TG Token here
-ADMIN_ID = 1679122331  # Paste your telegram account ID, you can check it
+TOKEN = "-"  # PASTE YOUR TG Token here
+ADMIN_ID = 0  # Paste your telegram account ID, you can check it
 ADMIN_IDS = {ADMIN_ID}  # Admins
 MSG_DIR = "msg/user"
 status = "open"
