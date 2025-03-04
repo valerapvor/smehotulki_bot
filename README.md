@@ -26,6 +26,48 @@ It has simple and functional functionality.*
 
 ---
 
+# Installation
+
+### (On Windows)
+
+1) Download and install last Python, reboot PC
+2) Press `Win+R` and type `cmd.exe` then press `Shift+Enter`
+3) In cmd write: `pip install PyTelegramBotAPI` and Press `Enter`
+4) Open link to [release](https://github.com/valerapvor/smehotulki_bot/releases/latest)
+5) Click `Assets` and click `SmehotulkiBot-x86_x64-universal-1.0.zip `
+6) Unzip downloaded archive to any folder
+7) Edit `main.py`:
+Change in "-" `TOKEN` to you real telegram bot api, created using @BotFather in telegram.
+8) Start bot: open start.bat
+9) Go to bot and send `/checkid` command, bot send a id you copy he.
+10) Go to `main.py` and paste copy id into `ADMIN_ID`.
+11) Restart bot.
+
+---
+
+### (by Git on Linux)
+
+1) Select the folder in which you want to install the bot
+2) Clone the repository:
+```
+git clone https://github.com/valerapvor/smehotulki_bot.git
+```
+3) Install dependencies:
+```
+pip install PyTelegramBotAPI
+```
+4) Edit `main.py`:
+Change in `TOKEN` - `-` to you real telegram bot api, created using @BotFather in telegram.
+5) Start bot:
+```
+./start.sh
+```
+6) Go to bot and send `/checkid` command, bot send a id you copy he.
+7) Go to `main.py` and paste copy id into `ADMIN_ID`.
+8) Restart bot.
+
+---
+
 # Demo
 
 **Sending message**
@@ -47,4 +89,6 @@ It has simple and functional functionality.*
 
 ### *...and a bunch of other features*
 
+---
 
+## On this all. Thanks for using!
