@@ -1,3 +1,5 @@
+> # **_VIBECODING WARNING!!! / 100% CREATED BY CHATGPT!!!_**
+
 # Smehotulki (Humor House) Suggestion Bot
 > A simple proposal bot for Telegram in Python (PyTelegramBotAPI)
 > that will send messages, video gifs, files, etc. bot administrator.
